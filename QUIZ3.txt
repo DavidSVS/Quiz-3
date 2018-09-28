@@ -1,0 +1,84 @@
+--Parte 1
+	  
+	  
+    CREATE TABLESPACE quiz3 
+    DATAFILE 'C:\Users\BGinvestments\Desktop\Datafile\quiz3.dbf' SIZE 50M,
+             'C:\Users\BGinvestments\Desktop\Datafile\quiz3_2.dbf' SIZE 50M;
+	
+    CREATE USER carlos_1
+    IDENTIFIED BY carlos_1
+    DEFAULT TABLESPACE quiz3;
+    GRANT CREATE SESSION TO carlos_1;
+    GRANT CREATE TABLE TO carlos_1;
+	    
+    CREATE USER user2
+    IDENTIFIED BY user2
+    DEFAULT TABLESPACE quiz3;
+    GRANT CREATE SESSION TO user2;
+	    
+    CREATE PROFILE estudiante_quiz LIMIT 
+    PASSWORD_LIFE_TIME               50   
+    SESSIONS_PER_USER                1   
+    IDLE_TIME                        10   
+    FAILED_LOGIN_ATTEMPTS            5;  
+	   
+	   
+    ALTER USER carlos_1 PROFILE estudiante_quiz;
+    ALTER USER user2 PROFILE estudiante_quiz;
+	 
+
+--Parte 2 
+	    create table icfes (
+		tipo_documento 	varchar2(255),
+	nacionalidad		varchar2(255),
+	genero					varchar2(255),
+	fecha_nacimiento	date,
+	periodo					varchar2(255),
+	consecutivo			varchar2(255),
+	departamento_residencia	varchar2(255),
+	codigo_departamento_residencia	integer,
+	municipio_residencia		varchar2(255),
+	codigo_municipio_residencia	varchar2(255),
+	estrato					varchar2(255),
+	educacion_padre	varchar2(255),
+	educacion_madre	varchar2(255),
+	tiene_internet	varchar2(255),
+	tiene_tv				varchar2(255),
+	tiene_lavadora	varchar2(255),
+	tiene_horno_micro_o_gas	varchar2(255),
+	tiene_automovil	varchar2(255),
+	tiene_motocicleta	varchar2(255),
+	tiene_consola_videojuegos	varchar2(255),
+	colegio_codigo_icfes	varchar2(255),
+	colegio_codigo_dane		varchar2(255),
+	colegio_nombre				varchar2(255),
+	puntaje_lectura_critica	integer,
+	puntaje_matematicas		integer,
+	puntaje_ciencias_naturales	integer,
+	puntaje_sociales			integer,
+	puntaje_ingles				integer,
+	desempeno_ingles			varchar2(255),
+	puntaje_global				integer
+);
+	
+	GRANT  DBA TO user2;
+	 
+--Parte 3
+	   SELECT * FROM icfes;
+	   
+	   
+	   --Queries 1
+	   
+	   SELECT genero, fecha_nacimiento, consecutivo, municipio_residencia, puntaje_global FROM icfes WHERE max(puntaje_global)
+	  
+	  --Queries 2
+	   SELECT genero, fecha_nacimiento, consecutivo, municipio_residencia, puntaje_global FROM icfes WHERE desempeno_ingles LIKE '%C%'
+	  
+	  
+	  --Queries 3
+      SELECT COUNT(DISTINCT(colegio_nombre)) FROM icfes
+      
+	
+	  --Queries 4
+	  SELECT COUNT(tipo_documento) FROM icfes WHERE municipio_residencia LIKE '%MONTERÍA%'
+	  
